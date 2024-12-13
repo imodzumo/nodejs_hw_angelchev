@@ -1,0 +1,22 @@
+{
+  "name": "homework01",
+  "version": "0.1.0",
+  "description": "homework 02",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_END=prod node main.js",
+    "start:dev": "NODE_END=dev node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "config": "^3.3.12",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
