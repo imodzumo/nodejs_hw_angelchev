@@ -7,6 +7,7 @@
   "scripts": {
     "start": "NODE_END=prod node main.js",
     "start:dev": "NODE_END=dev node main.js",
+    "start:test": "NODE_END=test node main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,9 +15,12 @@
   "dependencies": {
     "colors": "^1.4.0",
     "config": "^3.3.12",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "nodemon": "^3.1.7"
   }
 }

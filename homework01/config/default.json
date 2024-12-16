@@ -1,3 +1,4 @@
 {
-  "app_name": "My App"
+  "app_name": "My App",
+  "app_host": "test-server.com"
 }
