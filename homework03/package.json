@@ -5,9 +5,9 @@
   "main": "main.ts",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=prod tsx ./main.ts",
-    "start:dev": "NODE_ENV=dev tsx ./main.ts",
-    "start:test": "NODE_ENV=test tsx ./main.ts",
+    "start": "NODE_ENV=prod tsx ./src/main.ts",
+    "start:dev": "NODE_ENV=dev tsx ./src/main.ts",
+    "start:test": "NODE_ENV=test tsx ./src/main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
