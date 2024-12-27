@@ -1,0 +1,7 @@
+{
+  "app": {
+    "port": 4000,
+    "hostname": "localhost"
+  },
+  "app_name": "Test environment"
+}

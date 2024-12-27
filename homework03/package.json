@@ -1,0 +1,28 @@
+{
+  "name": "homework",
+  "version": "0.1.0",
+  "description": "homework",
+  "main": "main.ts",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=prod tsx ./src/main.ts",
+    "start:dev": "NODE_ENV=dev tsx ./src/main.ts",
+    "start:test": "NODE_ENV=test tsx ./src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "config": "^3.3.12",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.7",
+    "tsx": "^4.19.2"
+  }
+}
