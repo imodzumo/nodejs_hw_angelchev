@@ -1,5 +1,5 @@
 import config from "config";
-// @ts-ignore
+import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import logger from "./utils/logger";
 import httpLogger from "./middleware/httpLogger";
@@ -12,6 +12,7 @@ const PORT = config.get("app.port");
 const HOSTNAME = config.get("app.hostname");
 
 // Middleware for logging HTTP requests
+app.use(express.json());
 app.use(httpLogger);
 
 // Routes
@@ -22,7 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/healthcheck", (req: Request, res: Response) => {
     res.json({
         live: true,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toUTCString(),
     });
 });
 
