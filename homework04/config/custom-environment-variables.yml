@@ -3,6 +3,8 @@ app:
   port: APP_PORT
   hostname: APP_HOSTNAME
 
+database:
+  url: DATABASE_URL
 # database:
 #   schema: DATABASE_SCHEMA
 #   url_secret: DATABASE_URL_SECRET

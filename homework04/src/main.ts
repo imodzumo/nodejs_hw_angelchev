@@ -1,8 +1,11 @@
-import config from "config";
 import "dotenv/config";
+import config from "config";
 import express, { Request, Response, NextFunction } from "express";
 import logger from "./utils/logger";
 import httpLogger from "./middleware/httpLogger";
+import userRouter from "./routes/userRouter";
+import postRouter from "./routes/postRouter";
+import { databaseService } from "./services/DatabaseService";
 
 const { log, warn, error } = logger("main");
 
@@ -16,16 +19,9 @@ app.use(express.json());
 app.use(httpLogger);
 
 // Routes
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello, World!");
-});
-
-app.get("/healthcheck", (req: Request, res: Response) => {
-    res.json({
-        live: true,
-        timestamp: new Date().toUTCString(),
-    });
-});
+// Use routers
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/posts", postRouter);
 
 // Global Error Handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -37,3 +33,14 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.listen(PORT, HOSTNAME, () => {
     log(`Server is running on http://${HOSTNAME}:${PORT}`);
 });
+
+// Handle graceful shutdown
+process.on("SIGINT", handleShutdown);
+process.on("SIGTERM", handleShutdown);
+
+async function handleShutdown(signal: string): Promise<void> {
+    log(`Received ${signal}. Closing MongoDB connection...`);
+    await databaseService.disconnect();
+    log(`${signal} handled. Exiting process.`);
+    process.exit(0);
+}
