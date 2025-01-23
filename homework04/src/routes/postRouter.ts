@@ -5,43 +5,67 @@ const postRouter = Router();
 
 // Get all posts
 postRouter.get("/", async (req: Request, res: Response) => {
-    const posts = await postService.getAllPosts();
-    res.json(posts);
+    try {
+        const posts = await postService.getAllPosts();
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// Get posts by ID
+// Get post by ID
 postRouter.get("/:id", async (req: Request, res: Response) => {
-    const post = await postService.getPostById(req.params.id);
-    if (!post) return res.status(404).json({ error: "Post not found" });
-    res.json(post);
+    try {
+        const post = await postService.getPostById(req.params.id);
+        if (!post) return res.status(404).json({ error: "Post not found" });
+        res.json(post);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Get posts by user ID
-postRouter.get("/user/:userId", async (req, res) => {
-    const posts = await postService.getPostsByUserId(req.params.userId);
-    res.json(posts);
+postRouter.get("/users/:userId/posts", async (req, res) => {
+    try {
+        const posts = await postService.getPostsByUserId(req.params.userId);
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Create post
 postRouter.post("/", async (req: Request, res: Response) => {
-    const post = await postService.createPost({
-        ...req.body,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    });
-    res.status(201).json(post);
+    try {
+        const post = await postService.createPost({
+            ...req.body,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+        res.status(201).json(post);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Update post by ID
 postRouter.put("/:id", async (req: Request, res: Response) => {
-    const updatedPost = await postService.updatePost(req.params.id, req.body);
-    res.json(updatedPost);
+    try {
+        const updatedPost = await postService.updatePost(req.params.id, req.body);
+        res.json(updatedPost);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Delete post by ID
 postRouter.delete("/:id", async (req: Request, res: Response) => {
-    const success = await postService.deletePost(req.params.id);
-    res.json({ success });
+    try {
+        const success = await postService.deletePost(req.params.id);
+        res.json({ success });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 export default postRouter;
