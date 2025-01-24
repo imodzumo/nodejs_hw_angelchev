@@ -30,6 +30,10 @@ export class UserService {
         return result.value;
     }
 
+    async getPostsByUserId(userId: string) {
+        return this.db.collection("posts").find({ authorId: userId }).toArray();
+    }
+
     async deleteUser(id: string) {
         const result = await this.db.collection("users").deleteOne({ _id: new ObjectId(id) });
         return result.deletedCount > 0;

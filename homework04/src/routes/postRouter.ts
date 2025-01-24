@@ -24,15 +24,6 @@ postRouter.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
-// Get posts by user ID
-postRouter.get("/users/:userId/posts", async (req, res) => {
-    try {
-        const posts = await postService.getPostsByUserId(req.params.userId);
-        res.json(posts);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
 
 // Create post
 postRouter.post("/", async (req: Request, res: Response) => {

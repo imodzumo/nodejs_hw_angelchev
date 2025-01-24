@@ -41,10 +41,6 @@ export class PostService {
         const result = await this.db.collection("posts").deleteOne({ _id: new ObjectId(id) });
         return result.deletedCount > 0;
     }
-
-    async getPostsByUserId(userId: string) {
-        return this.db.collection("posts").find({ authorId: userId }).toArray();
-    }
 }
 
 export const postService = new PostService(db);

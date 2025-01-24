@@ -44,6 +44,16 @@ userRouter.put("/:id", async (req: Request, res: Response) => {
     }
 });
 
+// Get posts by user ID
+userRouter.get("/:userId/posts", async (req, res) => {
+    try {
+        const posts = await userService.getPostsByUserId(req.params.userId);
+        res.json(posts);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Delete user by ID
 userRouter.delete("/:id", async (req: Request, res: Response) => {
     try {
