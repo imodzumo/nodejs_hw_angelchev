@@ -1,5 +1,5 @@
-import {User} from "../models/UserModel";
-
+import { User } from "../models/UserModel";
+import { Post } from "../models/PostModel";
 
 export class UserService {
     async getAllUsers(filters: Record<string, any>) {
@@ -30,7 +30,7 @@ export class UserService {
     }
 
     async getPostsByUserId(userId: string) {
-        // return this.db.collection("posts").find({ authorId: userId }).toArray();
+        return Post.find({ authorId: userId });
     }
 
     async deleteUser(id: string) {

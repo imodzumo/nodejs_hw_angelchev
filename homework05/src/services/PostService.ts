@@ -18,12 +18,14 @@ export class PostService {
         createdAt: Date;
         updatedAt: Date;
     }) {
-        const post = new Post();
-        post.title = data.title;
-        post.content = data.content;
-        post.status = data.status;
-        post.createdAt = data.createdAt;
-        post.updatedAt = data.updatedAt;
+        const post = new Post({
+            authorId: data.authorId,
+            title: data.title,
+            content: data.content,
+            status: data.status,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt,
+        });
         await post.save();
     }
 
@@ -35,6 +37,7 @@ export class PostService {
         post.title = data.title;
         post.content = data.content;
         post.status = data.status;
+        post.updatedAt = new Date();
         await post.save();
     }
 
