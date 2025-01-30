@@ -1,7 +1,25 @@
 import { Router, Request, Response } from "express";
 import { postService } from "../services/PostService";
+import { body, validationResult } from "express-validator";
 
 const postRouter = Router();
+
+// Validation rules for post creation and update
+const validatePost = [
+    body('authorId').trim().isMongoId().withMessage("Invalid authorId format"),
+    body('title').trim().isLength({ min: 3 }).withMessage("Title must be at least 3 characters"),
+    body('content').trim().isLength({ min: 10 }).withMessage("Content must be at least 10 characters"),
+    body('status').isIn(["draft", "published", "archived"]).withMessage("Status must be 'draft', 'published', or 'archived'"),
+];
+
+// Middleware to check validation results
+const validateRequest = (req: Request, res: Response, next: Function) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    next();
+};
 
 // Get all posts
 postRouter.get("/", async (req: Request, res: Response) => {
@@ -24,9 +42,8 @@ postRouter.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
-
-// Create post
-postRouter.post("/", async (req: Request, res: Response) => {
+// Create post (POST) with validation
+postRouter.post("/", validatePost, validateRequest, async (req: Request, res: Response) => {
     try {
         const post = await postService.createPost({
             ...req.body,
@@ -39,8 +56,8 @@ postRouter.post("/", async (req: Request, res: Response) => {
     }
 });
 
-// Update post by ID
-postRouter.put("/:id", async (req: Request, res: Response) => {
+// Update post by ID (PUT) with validation
+postRouter.put("/:id", validatePost, validateRequest, async (req: Request, res: Response) => {
     try {
         const updatedPost = await postService.updatePost(req.params.id, req.body);
         res.json(updatedPost);
