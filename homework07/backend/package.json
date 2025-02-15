@@ -1,0 +1,36 @@
+{
+  "name": "blog-backend",
+  "version": "1.0.0",
+  "description": "Backend for Blog Application",
+  "main": "main.ts",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=prod node --import tsx ./src/main.ts",
+    "start:dev": "NODE_ENV=dev node --import tsx ./src/main.ts",
+    "start:test": "NODE_ENV=test node --import tsx ./src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Igor Angelchev",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.0",
+    "class-validator": "^0.14.1",
+    "colors": "^1.4.0",
+    "config": "^3.3.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.7",
+    "tsx": "^4.19.2"
+  }
+}
