@@ -14,7 +14,6 @@ userRouter.get("/", async (req: Request, res: Response) => {
 });
 
 // Get user by ID
-// @ts-ignore
 userRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         const user = await userService.getUserById(Number(req.params.id));

@@ -22,15 +22,28 @@ export class PostService {
         return this.repository.save(post);
     }
 
-    async updatePost(id: number, data: Partial<Post>) {
-        const post = await this.repository.findOne({ where: { id } });
+    async updatePost(postId: number, userId: number, data: Partial<Post>) {
+        const post = await this.repository.findOne({ where: { id: postId } });
         if (!post) throw new Error("Post not found");
+
+        if (post.authorId !== userId) {
+            throw new Error("You are not authorized to edit this post");
+        }
+
         Object.assign(post, data);
         return this.repository.save(post);
     }
 
-    async deletePost(id: number) {
-        return this.repository.delete(id);
+    async deletePost(postId: number, userId: number) {
+        const post = await this.repository.findOne({ where: { id: postId } });
+        if (!post) throw new Error("Post not found");
+
+        if (post.authorId !== userId) {
+            throw new Error("You are not authorized to delete this post");
+        }
+
+        await this.repository.delete(postId);
+        return true;
     }
 }
 

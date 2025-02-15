@@ -15,7 +15,7 @@ export const CommentController = {
         try {
             const comment = await commentService.createComment({
                 ...req.body,
-                userId: req.user.id,  // Ensure userId is taken from the authenticated user
+                userId: req.user!.userId,  // Use userId from the authenticated user
             });
             res.status(201).json(comment);
         } catch (err) {
@@ -25,7 +25,7 @@ export const CommentController = {
 
     async updateComment(req: Request, res: Response) {
         try {
-            const updatedComment = await commentService.updateComment(Number(req.params.id), req.user.id, req.body);
+            const updatedComment = await commentService.updateComment(Number(req.params.id), req.user!.userId, req.body);
             res.json(updatedComment);
         } catch (err) {
             res.status(403).json({ error: err.message });
@@ -35,7 +35,7 @@ export const CommentController = {
     async deleteComment(req: Request, res: Response) {
         try {
             const postId = Number(req.params.postId);
-            const success = await commentService.deleteComment(Number(req.params.id), req.user.id, postId);
+            const success = await commentService.deleteComment(Number(req.params.id), req.user!.userId, postId);
             res.json({ success });
         } catch (err) {
             res.status(403).json({ error: err.message });

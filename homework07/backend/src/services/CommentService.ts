@@ -35,7 +35,6 @@ export class CommentService {
         const comment = await this.repository.findOne({ where: { id: commentId } });
         if (!comment) throw new Error("Comment not found");
 
-        // Check if the user is the comment author or the post author
         const post = await appDataSource.getRepository(Post).findOne({ where: { id: postId } });
         if (comment.userId !== userId && post?.authorId !== userId) {
             throw new Error("You do not have permission to delete this comment.");

@@ -32,6 +32,14 @@ export const PostController = {
 
     async updatePost(req: Request, res: Response) {
         try {
+            const post = await postService.getPostById(Number(req.params.id));
+            if (!post) return res.status(404).json({ error: "Post not found" });
+
+            // Check if the logged-in user is the author
+            if (post.authorId !== req.user.userId) {
+                return res.status(403).json({ error: "Access denied" });
+            }
+
             const updatedPost = await postService.updatePost(Number(req.params.id), req.body);
             res.json(updatedPost);
         } catch (err) {
