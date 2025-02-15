@@ -40,7 +40,7 @@ export const PostController = {
                 return res.status(403).json({ error: "Access denied" });
             }
 
-            const updatedPost = await postService.updatePost(Number(req.params.id), req.body);
+            const updatedPost = await postService.updatePost(Number(req.params.id), req.user!.userId, req.body);
             res.json(updatedPost);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -49,7 +49,7 @@ export const PostController = {
 
     async deletePost(req: Request, res: Response) {
         try {
-            const result = await postService.deletePost(Number(req.params.id));
+            const result = await postService.deletePost(Number(req.params.id), req.user!.userId);
             res.json(result);
         } catch (err) {
             res.status(500).json({ error: err.message });
